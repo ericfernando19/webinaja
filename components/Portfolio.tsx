@@ -4,34 +4,28 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    title: "WarungMakmur.id",
-    category: "Website UMKM",
+    title: "Company Profile Coffee Shop",
+    deskripsi:
+      "Company profile modern untuk coffee shop dengan menu digital, galeri produk, dan informasi cabang.",
     color: "from-blue-400 to-blue-600",
   },
   {
-    title: "KaryaStudio",
-    category: "Portofolio Personal",
+    title: "Sistem Kasir Restoran",
+    deskripsi:
+      "Aplikasi kasir online dengan manajemen menu, laporan penjualan, dan integrasi pembayaran digital.",
     color: "from-purple-400 to-purple-600",
   },
   {
-    title: "PrimaSchool.sch.id",
-    category: "Website Sekolah",
+    title: "Sistem Informasi Sekolah (SPADA)",
+    deskripsi:
+      "Portal sekolah lengkap dengan manajemen nilai, jadwal pelajaran, dan informasi akademik berbasis web.",
     color: "from-emerald-400 to-emerald-600",
   },
   {
-    title: "MajuBersama.co.id",
-    category: "Company Profile",
+    title: "Website Rental Mobil",
+    deskripsi:
+      "Platform pemesanan rental mobil dengan kalender ketersediaan, katalog kendaraan, dan sistem booking online.",
     color: "from-amber-400 to-amber-600",
-  },
-  {
-    title: "EventFest2026",
-    category: "Website Event",
-    color: "from-rose-400 to-rose-600",
-  },
-  {
-    title: "OrganisasiKita.or.id",
-    category: "Website Organisasi",
-    color: "from-cyan-400 to-cyan-600",
   },
 ];
 
@@ -107,18 +101,18 @@ export default function Portfolio() {
                 </div>
               </div>
               <div className="p-5">
-                <span className="text-xs font-semibold text-primary bg-primary-light px-3 py-1 rounded-full">
-                  {project.category}
-                </span>
-                <h3 className="font-bold text-secondary text-lg mt-3 mb-3">
+                <h3 className="font-bold text-secondary text-lg mb-2">
                   {project.title}
                 </h3>
+                <p className="text-neutral-500 text-sm leading-relaxed mb-4">
+                  {project.deskripsi}
+                </p>
                 <div className="flex items-center justify-between">
                   <a
                     href="#"
                     className="text-sm font-medium text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
                   >
-                    Lihat Demo
+                    Tonton Demo
                     <svg
                       className="w-4 h-4"
                       fill="none"

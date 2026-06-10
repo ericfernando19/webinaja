@@ -21,6 +21,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "WebinAja - Jasa Pembuatan Website Profesional untuk UMKM & Bisnis",
+  icons: { icon: "/logo.png" },
   description:
     "Tingkatkan kredibilitas bisnis Anda dengan website modern dari WebinAja. Jasa pembuatan website profesional untuk UMKM, bisnis lokal, personal branding, dan perusahaan. Konsultasi gratis!",
   keywords: [
