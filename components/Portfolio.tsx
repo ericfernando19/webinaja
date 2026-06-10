@@ -1,31 +1,36 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const projects = [
   {
     title: "Company Profile Coffee Shop",
     deskripsi:
       "Company profile modern untuk coffee shop dengan menu digital, galeri produk, dan informasi cabang.",
-    color: "from-blue-400 to-blue-600",
+    image: "coffeshop.png",
+    demo: "https://www.tiktok.com/@webinaja19/video/7644876885339491591?is_from_webapp=1&sender_device=pc",
   },
   {
     title: "Sistem Kasir Restoran",
     deskripsi:
       "Aplikasi kasir online dengan manajemen menu, laporan penjualan, dan integrasi pembayaran digital.",
-    color: "from-purple-400 to-purple-600",
+    image: "kasir-restoran.png",
+    demo: "https://www.tiktok.com/@webinaja19/photo/7644579590878285064?is_from_webapp=1&sender_device=pc",
   },
   {
     title: "Sistem Informasi Sekolah (SPADA)",
     deskripsi:
       "Portal sekolah lengkap dengan manajemen nilai, jadwal pelajaran, dan informasi akademik berbasis web.",
-    color: "from-emerald-400 to-emerald-600",
+    image: "spada.png",
+    demo: "#",
   },
   {
     title: "Website Rental Mobil",
     deskripsi:
       "Platform pemesanan rental mobil dengan kalender ketersediaan, katalog kendaraan, dan sistem booking online.",
-    color: "from-amber-400 to-amber-600",
+    image: "rencar.png",
+    demo: "https://www.tiktok.com/@webinaja19/video/7647380848949382408?is_from_webapp=1&sender_device=pc",
   },
 ];
 
@@ -43,6 +48,19 @@ const cardVariants = {
 };
 
 export default function Portfolio() {
+  const [selected, setSelected] = useState<(typeof projects)[0] | null>(null);
+
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selected]);
+
   return (
     <section id="portfolio" className="py-20 lg:py-28 bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,29 +94,36 @@ export default function Portfolio() {
             <motion.div
               key={project.title}
               variants={cardVariants}
-              className="group relative bg-white rounded-2xl overflow-hidden border border-neutral-100 hover:shadow-xl transition-all duration-300"
+              onClick={() => setSelected(project)}
+              className="group relative bg-white rounded-2xl overflow-hidden border border-neutral-100 hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
             >
-              <div
-                className={`aspect-video bg-gradient-to-br ${project.color} flex items-center justify-center`}
-              >
-                <div className="text-white/90 text-center p-4">
-                  <div className="w-12 h-12 mx-auto mb-3 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                      />
-                    </svg>
+              <div className="aspect-video bg-neutral-200 flex items-center justify-center overflow-hidden">
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div className="text-neutral-400 text-center p-4">
+                    <div className="w-12 h-12 mx-auto mb-3 bg-neutral-300 rounded-xl flex items-center justify-center">
+                      <svg
+                        className="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-medium">Preview</p>
                   </div>
-                  <p className="text-sm font-medium opacity-80">Preview</p>
-                </div>
+                )}
               </div>
               <div className="p-5">
                 <h3 className="font-bold text-secondary text-lg mb-2">
@@ -109,7 +134,9 @@ export default function Portfolio() {
                 </p>
                 <div className="flex items-center justify-between">
                   <a
-                    href="#"
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm font-medium text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
                   >
                     Tonton Demo
@@ -129,17 +156,54 @@ export default function Portfolio() {
                   </a>
                 </div>
               </div>
-              <div className="absolute inset-0 bg-secondary/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <a
-                  href="#"
-                  className="bg-white text-secondary px-6 py-3 rounded-xl font-semibold text-sm hover:bg-primary hover:text-white transition-all shadow-lg"
-                >
-                  Lihat Detail
-                </a>
-              </div>
             </motion.div>
           ))}
         </motion.div>
+
+        <AnimatePresence>
+          {selected && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelected(null)}
+              className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 backdrop-blur-sm"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                onClick={(e) => e.stopPropagation()}
+                className="bg-white rounded-2xl overflow-hidden max-w-lg w-full shadow-2xl"
+              >
+                <div className="aspect-video bg-neutral-200">
+                  {selected.image && (
+                    <img
+                      src={selected.image}
+                      alt={selected.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-secondary text-xl mb-3">
+                    {selected.title}
+                  </h3>
+                  <p className="text-neutral-500 leading-relaxed">
+                    {selected.deskripsi}
+                  </p>
+                  <button
+                    onClick={() => setSelected(null)}
+                    className="mt-6 w-full bg-primary text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-all"
+                  >
+                    Tutup
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
